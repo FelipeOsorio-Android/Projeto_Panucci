@@ -13,7 +13,8 @@ import devandroid.felipe.restaurantepanucci.ui.theme.RestaurantePanucciTheme
 
 class BottomAppBarItem(
     val label: String,
-    val icon: ImageVector
+    val icon: ImageVector,
+    val route: String
 )
 
 @Composable
