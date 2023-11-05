@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -96,8 +97,10 @@ class MainActivity : ComponentActivity() {
                             composable(AppDestinations.Highlight.route) {
                                 HighlightsListScreen(
                                     products = sampleProducts,
-                                    onNavigateToDetails = {
-                                        navController.navigate(AppDestinations.Details.route)
+                                    onNavigateToDetails = { product ->
+                                        navController.navigate(
+                                            "${AppDestinations.Details.route}/${product.id}"
+                                        )
                                     },
                                     onNavigateToCheckout = {
                                         navController.navigate(AppDestinations.Checkout.route)
@@ -107,29 +110,43 @@ class MainActivity : ComponentActivity() {
                             composable(AppDestinations.Menu.route) {
                                 MenuListScreen(
                                     products = sampleProducts,
-                                    onNavigateToDetails = {
-                                        navController.navigate(AppDestinations.Details.route)
+                                    onNavigateToDetails = { product ->
+                                        navController.navigate(
+                                            "${AppDestinations.Details.route}/${product.id}"
+                                        )
                                     }
                                 )
                             }
                             composable(AppDestinations.Drinks.route) {
                                 DrinksListScreen(
                                     products = sampleProducts,
-                                    onNavigateToDetails = {
-                                        navController.navigate(AppDestinations.Details.route)
+                                    onNavigateToDetails = { product ->
+                                        navController.navigate(
+                                            "${AppDestinations.Details.route}/${product.id}"
+                                        )
                                     }
                                 )
                             }
-                            composable(AppDestinations.Details.route) {
-                                ProductDetailsScreen(
-                                    product = sampleProducts.random(),
-                                    onNavigateToCheckout = {
-                                        navController.navigate(AppDestinations.Checkout.route)
-                                    }
-                                )
+                            composable("${AppDestinations.Details.route}/{productId}")
+                            { backStackEntry ->
+                                val id = backStackEntry.arguments?.getString("productId")
+                                sampleProducts.find {
+                                    it.id == id
+                                }?.let {
+                                    ProductDetailsScreen(
+                                        product = sampleProducts.random(),
+                                        onNavigateToCheckout = {
+                                            navController.navigate(AppDestinations.Checkout.route)
+                                        }
+                                    )
+                                } ?: LaunchedEffect(Unit) {
+                                    navController.navigateUp()
+                                }
                             }
                             composable(AppDestinations.Checkout.route) {
-                                CheckoutScreen(products = sampleProducts)
+                                CheckoutScreen(products = sampleProducts, onPopBackStack = {
+                                    navController.navigateUp()
+                                })
                             }
                         }
 

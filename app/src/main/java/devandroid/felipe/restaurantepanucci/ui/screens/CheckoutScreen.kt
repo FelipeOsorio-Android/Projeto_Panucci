@@ -39,7 +39,8 @@ import devandroid.felipe.restaurantepanucci.ui.theme.RestaurantePanucciTheme
 @Composable
 fun CheckoutScreen(
     modifier: Modifier = Modifier,
-    products: List<ProductModel> = emptyList()
+    products: List<ProductModel> = emptyList(),
+    onPopBackStack: () -> Unit = {}
 ) {
     Box(
         modifier.fillMaxSize()
@@ -141,7 +142,7 @@ fun CheckoutScreen(
             }
         }
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { onPopBackStack() },
             Modifier
                 .padding(
                     16.dp

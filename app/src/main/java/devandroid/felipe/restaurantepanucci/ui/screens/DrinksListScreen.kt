@@ -32,7 +32,7 @@ fun DrinksListScreen(
     title: String = "Bebidas",
     products: List<ProductModel> = emptyList(),
     columns: Int = 2,
-    onNavigateToDetails: () -> Unit = {}
+    onNavigateToDetails: (ProductModel) -> Unit = {}
 ) {
     Column(
         modifier
@@ -61,7 +61,7 @@ fun DrinksListScreen(
                     product = p,
                     Modifier
                         .clickable {
-                            onNavigateToDetails()
+                            onNavigateToDetails(p)
                         }
                 )
             }
