@@ -29,7 +29,8 @@ import devandroid.felipe.restaurantepanucci.ui.theme.RestaurantePanucciTheme
 @Composable
 fun ProductDetailsScreen(
     product: ProductModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigateToCheckout: () -> Unit = {}
 ) {
     Column(
         modifier
@@ -57,7 +58,7 @@ fun ProductDetailsScreen(
             Text(product.price.toPlainString(), fontSize = 18.sp)
             Text(product.description)
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { onNavigateToCheckout() },
                 Modifier
                     .fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)

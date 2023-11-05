@@ -8,13 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import devandroid.felipe.restaurantepanucci.sampledata.bottomAppBarItems
+import devandroid.felipe.restaurantepanucci.navigation.AppDestinations
+import devandroid.felipe.restaurantepanucci.navigation.bottomAppBarItems
 import devandroid.felipe.restaurantepanucci.ui.theme.RestaurantePanucciTheme
 
 class BottomAppBarItem(
     val label: String,
     val icon: ImageVector,
-    val route: String
+    val destination: AppDestinations
 )
 
 @Composable
