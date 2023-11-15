@@ -1,20 +1,25 @@
 package devandroid.felipe.restaurantepanucci.navigation
 
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import devandroid.felipe.restaurantepanucci.sampledata.sampleProducts
 import devandroid.felipe.restaurantepanucci.ui.screens.DrinksListScreen
 
+private const val drinksRoute = "drinks"
+
 fun NavGraphBuilder.drinksScreen(navController: NavHostController) {
-    composable(AppDestinations.Drinks.route) {
+    composable(drinksRoute) {
         DrinksListScreen(
             products = sampleProducts,
             onNavigateToDetails = { product ->
-                navController.navigate(
-                    "${AppDestinations.Details.route}/${product.id}"
-                )
+                navController.navigateToProductDetails(product.id)
             }
         )
     }
+}
+
+fun NavController.navigateToDrinks() {
+    navigate(drinksRoute)
 }
