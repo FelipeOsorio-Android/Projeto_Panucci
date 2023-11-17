@@ -12,33 +12,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import devandroid.felipe.restaurantepanucci.navigation.bottomAppBarItems
-import devandroid.felipe.restaurantepanucci.navigation.drinksRoute
-import devandroid.felipe.restaurantepanucci.navigation.highlightsListRoute
-import devandroid.felipe.restaurantepanucci.navigation.menuRoute
 import devandroid.felipe.restaurantepanucci.ui.theme.RestaurantePanucciTheme
 
-open class BottomAppBarItem(
+sealed class BottomAppBarItem(
     val label: String,
-    val icon: ImageVector,
-    val destination: String
+    val icon: ImageVector
 ) {
     object HighLightsList : BottomAppBarItem(
     label = "Destaques",
-    icon = Icons.Filled.AutoAwesome,
-    destination = highlightsListRoute
+    icon = Icons.Filled.AutoAwesome
     )
     object Menu : BottomAppBarItem(
     label = "Menu",
-    icon = Icons.Filled.RestaurantMenu,
-    destination = menuRoute
+    icon = Icons.Filled.RestaurantMenu
     )
     object Drinks : BottomAppBarItem(
     label = "Bebidas",
-    icon = Icons.Outlined.LocalBar,
-    destination = drinksRoute
+    icon = Icons.Outlined.LocalBar
     )
 }
+
+val bottomAppBarItems = listOf(
+    BottomAppBarItem.HighLightsList,
+    BottomAppBarItem.Menu,
+    BottomAppBarItem.Drinks
+)
 
 @Composable
 fun PanucciBottomAppBar(

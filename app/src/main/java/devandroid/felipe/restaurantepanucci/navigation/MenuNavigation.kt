@@ -3,6 +3,7 @@ package devandroid.felipe.restaurantepanucci.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import devandroid.felipe.restaurantepanucci.sampledata.sampleProducts
 import devandroid.felipe.restaurantepanucci.ui.screens.MenuListScreen
@@ -20,6 +21,6 @@ fun NavGraphBuilder.menuScreen(navController: NavHostController) {
     }
 }
 
-fun NavController.navigateToMenu() {
-    navigate(menuRoute)
+fun NavController.navigateToMenu(navOptions: NavOptions? = null) {
+    navigate(menuRoute, navOptions)
 }
