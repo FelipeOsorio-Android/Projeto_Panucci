@@ -3,6 +3,7 @@ package devandroid.felipe.restaurantepanucci.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import devandroid.felipe.restaurantepanucci.ui.components.BottomAppBarItem
 
 @Composable
 fun PanucciNavHost(navController: NavHostController) {
@@ -18,3 +19,9 @@ fun PanucciNavHost(navController: NavHostController) {
     }
 
 }
+
+val bottomAppBarItems = listOf(
+    BottomAppBarItem.HighLightsList,
+    BottomAppBarItem.Menu,
+    BottomAppBarItem.Drinks
+)

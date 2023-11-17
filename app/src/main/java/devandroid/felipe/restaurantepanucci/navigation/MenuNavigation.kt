@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import devandroid.felipe.restaurantepanucci.sampledata.sampleProducts
 import devandroid.felipe.restaurantepanucci.ui.screens.MenuListScreen
 
-private const val menuRoute = "menu"
+internal const val menuRoute = "menu"
 
 fun NavGraphBuilder.menuScreen(navController: NavHostController) {
     composable(menuRoute) {

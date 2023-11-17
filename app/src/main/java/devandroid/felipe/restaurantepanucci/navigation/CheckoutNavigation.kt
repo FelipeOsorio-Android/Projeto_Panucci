@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import devandroid.felipe.restaurantepanucci.sampledata.sampleProducts
 import devandroid.felipe.restaurantepanucci.ui.screens.CheckoutScreen
 
-private const val checkoutRoute = "checkout"
+internal const val checkoutRoute = "checkout"
 fun NavGraphBuilder.checkoutScreen(navController: NavHostController) {
     composable(checkoutRoute) {
         CheckoutScreen(products = sampleProducts, onPopBackStack = {
