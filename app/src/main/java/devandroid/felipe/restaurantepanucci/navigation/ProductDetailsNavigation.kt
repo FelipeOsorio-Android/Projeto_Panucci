@@ -3,14 +3,13 @@ package devandroid.felipe.restaurantepanucci.navigation
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import devandroid.felipe.restaurantepanucci.sampledata.sampleProducts
 import devandroid.felipe.restaurantepanucci.ui.screens.ProductDetailsScreen
 
-private const val productDetailsRoute = "details"
-private const val productIdArguments = "productId"
-fun NavGraphBuilder.productDetailsScreen(navController: NavHostController) {
+internal const val productDetailsRoute = "details"
+internal const val productIdArguments = "productId"
+fun NavGraphBuilder.productDetailsScreen(navController: NavController) {
     composable("$productDetailsRoute/{$productIdArguments}")
     { backStackEntry ->
         val id = backStackEntry.arguments?.getString(productIdArguments)

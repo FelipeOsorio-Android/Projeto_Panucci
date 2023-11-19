@@ -2,7 +2,6 @@ package devandroid.felipe.restaurantepanucci.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import devandroid.felipe.restaurantepanucci.sampledata.sampleProducts
@@ -10,7 +9,7 @@ import devandroid.felipe.restaurantepanucci.ui.screens.HighlightsListScreen
 
 internal const val highlightsListRoute = "highlight"
 
-fun NavGraphBuilder.highlightsListScreen(navController: NavHostController) {
+fun NavGraphBuilder.highlightsListScreen(navController: NavController) {
     composable(highlightsListRoute) {
         HighlightsListScreen(
             products = sampleProducts,
