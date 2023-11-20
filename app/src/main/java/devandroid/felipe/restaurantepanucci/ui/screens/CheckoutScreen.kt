@@ -31,17 +31,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import devandroid.felipe.restaurantepanucci.model.ProductModel
-import devandroid.felipe.restaurantepanucci.sampledata.sampleProducts
 import devandroid.felipe.restaurantepanucci.ui.components.CheckoutItemCard
 import devandroid.felipe.restaurantepanucci.ui.theme.RestaurantePanucciTheme
+import devandroid.felipe.restaurantepanucci.ui.uistate.CheckoutUiState
 
 @Composable
 fun CheckoutScreen(
     modifier: Modifier = Modifier,
-    products: List<ProductModel> = emptyList(),
-    onPopBackStack: () -> Unit = {}
+    onPopBackStack: () -> Unit = {},
+    uiState: CheckoutUiState = CheckoutUiState()
 ) {
+    val products = uiState.products
+
     Box(
         modifier.fillMaxSize()
     ) {
@@ -169,9 +170,7 @@ fun CheckoutScreen(
 fun CheckoutScreenPreview() {
     RestaurantePanucciTheme {
         Surface {
-            CheckoutScreen(
-                products = sampleProducts
-            )
+            CheckoutScreen()
         }
     }
 }

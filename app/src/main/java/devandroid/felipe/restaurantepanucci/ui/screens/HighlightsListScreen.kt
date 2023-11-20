@@ -18,19 +18,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import devandroid.felipe.restaurantepanucci.model.ProductModel
-import devandroid.felipe.restaurantepanucci.sampledata.sampleProducts
 import devandroid.felipe.restaurantepanucci.ui.components.HighlightProductCard
 import devandroid.felipe.restaurantepanucci.ui.theme.RestaurantePanucciTheme
 import devandroid.felipe.restaurantepanucci.ui.theme.caveatFont
+import devandroid.felipe.restaurantepanucci.ui.uistate.HighlightsListUiState
 
 @Composable
 fun HighlightsListScreen(
     modifier: Modifier = Modifier,
     title: String = "Destaques do dia",
-    products: List<ProductModel> = emptyList(),
     onNavigateToCheckout: () -> Unit = {},
-    onNavigateToDetails: (ProductModel) -> Unit = {}
+    onNavigateToDetails: (ProductModel) -> Unit = {},
+    uiState: HighlightsListUiState = HighlightsListUiState()
 ) {
+    val products = uiState.products
+
     Column(
         modifier
             .fillMaxSize()
@@ -71,8 +73,7 @@ fun HighlightsListScreenPreview() {
     RestaurantePanucciTheme {
         Surface {
             HighlightsListScreen(
-                products = sampleProducts,
-                title = "Destaques do dia"
+                title = "Destaques do dia",
             )
         }
     }

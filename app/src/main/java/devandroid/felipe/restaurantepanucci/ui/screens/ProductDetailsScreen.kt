@@ -22,16 +22,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import devandroid.felipe.restaurantepanucci.R
-import devandroid.felipe.restaurantepanucci.model.ProductModel
-import devandroid.felipe.restaurantepanucci.sampledata.sampleProducts
 import devandroid.felipe.restaurantepanucci.ui.theme.RestaurantePanucciTheme
+import devandroid.felipe.restaurantepanucci.ui.uistate.ProductDetailsUiState
 
 @Composable
 fun ProductDetailsScreen(
-    product: ProductModel,
     modifier: Modifier = Modifier,
-    onNavigateToCheckout: () -> Unit = {}
+    onNavigateToCheckout: () -> Unit = {},
+    uiState: ProductDetailsUiState = ProductDetailsUiState()
 ) {
+    val product = uiState.product
+
     Column(
         modifier
             .fillMaxSize()
@@ -74,9 +75,7 @@ fun ProductDetailsScreen(
 fun ProductDetailsScreenPreview() {
     RestaurantePanucciTheme {
         Surface {
-            ProductDetailsScreen(
-                product = sampleProducts.random(),
-            )
+            ProductDetailsScreen()
         }
     }
 }

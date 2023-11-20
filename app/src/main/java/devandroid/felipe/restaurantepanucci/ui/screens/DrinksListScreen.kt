@@ -20,20 +20,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import devandroid.felipe.restaurantepanucci.model.ProductModel
-import devandroid.felipe.restaurantepanucci.sampledata.sampleProducts
 import devandroid.felipe.restaurantepanucci.ui.components.DrinkProductCard
 import devandroid.felipe.restaurantepanucci.ui.theme.RestaurantePanucciTheme
 import devandroid.felipe.restaurantepanucci.ui.theme.caveatFont
+import devandroid.felipe.restaurantepanucci.ui.uistate.DrinksListUiState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DrinksListScreen(
     modifier: Modifier = Modifier,
     title: String = "Bebidas",
-    products: List<ProductModel> = emptyList(),
     columns: Int = 2,
-    onNavigateToDetails: (ProductModel) -> Unit = {}
+    onNavigateToDetails: (ProductModel) -> Unit = {},
+    uiState: DrinksListUiState = DrinksListUiState()
 ) {
+    val products = uiState.products
+
     Column(
         modifier
             .fillMaxSize()
@@ -75,8 +77,7 @@ fun DrinksListScreenPreview() {
     RestaurantePanucciTheme {
         Surface {
             DrinksListScreen(
-                products = sampleProducts,
-                title = "Bebidas"
+                title = "Bebidas",
             )
         }
     }

@@ -18,18 +18,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import devandroid.felipe.restaurantepanucci.model.ProductModel
-import devandroid.felipe.restaurantepanucci.sampledata.sampleProducts
 import devandroid.felipe.restaurantepanucci.ui.components.MenuProductCard
 import devandroid.felipe.restaurantepanucci.ui.theme.RestaurantePanucciTheme
 import devandroid.felipe.restaurantepanucci.ui.theme.caveatFont
+import devandroid.felipe.restaurantepanucci.ui.uistate.MenuListUiState
 
 @Composable
 fun MenuListScreen(
     modifier: Modifier = Modifier,
     title: String = "Menu",
-    products: List<ProductModel> = emptyList(),
     onNavigateToDetails: (ProductModel) -> Unit = {},
+    uiState: MenuListUiState = MenuListUiState(),
 ) {
+    val products = uiState.products
+
     Column(
         modifier.fillMaxSize()
     ) {
@@ -68,9 +70,7 @@ fun MenuListScreen(
 fun MenuListScreenPreview() {
     RestaurantePanucciTheme {
         Surface {
-            MenuListScreen(
-                products = sampleProducts
-            )
+            MenuListScreen()
         }
     }
 }
