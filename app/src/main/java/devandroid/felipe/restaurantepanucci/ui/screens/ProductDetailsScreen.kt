@@ -28,7 +28,8 @@ import devandroid.felipe.restaurantepanucci.ui.uistate.ProductDetailsUiState
 @Composable
 fun ProductDetailsScreen(
     modifier: Modifier = Modifier,
-    onNavigateToCheckout: () -> Unit = {},
+    onOrderClick: () -> Unit = {},
+    onBackClick: () -> Unit = {},
     uiState: ProductDetailsUiState = ProductDetailsUiState()
 ) {
     val product = uiState.product
@@ -59,7 +60,7 @@ fun ProductDetailsScreen(
             Text(product.price.toPlainString(), fontSize = 18.sp)
             Text(product.description)
             Button(
-                onClick = { onNavigateToCheckout() },
+                onClick = { onOrderClick() },
                 Modifier
                     .fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)

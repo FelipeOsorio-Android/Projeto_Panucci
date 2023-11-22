@@ -31,7 +31,7 @@ fun DrinksListScreen(
     modifier: Modifier = Modifier,
     title: String = "Bebidas",
     columns: Int = 2,
-    onNavigateToDetails: (ProductModel) -> Unit = {},
+    onProductClick: (ProductModel) -> Unit = {},
     uiState: DrinksListUiState = DrinksListUiState()
 ) {
     val products = uiState.products
@@ -63,7 +63,7 @@ fun DrinksListScreen(
                     product = p,
                     Modifier
                         .clickable {
-                            onNavigateToDetails(p)
+                            onProductClick(p)
                         }
                 )
             }

@@ -10,15 +10,13 @@ import devandroid.felipe.restaurantepanucci.ui.screens.CheckoutScreen
 import devandroid.felipe.restaurantepanucci.ui.viewmodels.CheckoutViewModel
 
 internal const val checkoutRoute = "checkout"
-fun NavGraphBuilder.checkoutScreen(navController: NavController) {
+fun NavGraphBuilder.checkoutScreen(onPopBackStack: () -> Unit) {
     composable(checkoutRoute) {
 
         val viewModel = viewModel<CheckoutViewModel>()
         val uiState by viewModel.uiState.collectAsState()
 
-        CheckoutScreen(uiState = uiState, onPopBackStack = {
-            navController.navigateUp()
-        })
+        CheckoutScreen(uiState = uiState, onOrderClick = onPopBackStack)
     }
 }
 

@@ -12,7 +12,10 @@ import devandroid.felipe.restaurantepanucci.ui.viewmodels.ProductDetailsViewMode
 
 internal const val productDetailsRoute = "details"
 internal const val productIdArguments = "productId"
-fun NavGraphBuilder.productDetailsScreen(navController: NavController) {
+fun NavGraphBuilder.productDetailsScreen(
+    onNavigateToCheckout: () -> Unit,
+    onPopBackStack: () -> Unit
+) {
 
     composable("$productDetailsRoute/{$productIdArguments}")
     { backStackEntry ->
@@ -28,12 +31,11 @@ fun NavGraphBuilder.productDetailsScreen(navController: NavController) {
 
             ProductDetailsScreen(
                 uiState = uiState,
-                onNavigateToCheckout = {
-                    navController.navigateToCheckout()
-                }
+                onOrderClick = onNavigateToCheckout,
+                onBackClick = onPopBackStack
             )
         } ?: LaunchedEffect(Unit) {
-            navController.navigateUp()
+            onPopBackStack()
         }
     }
 }

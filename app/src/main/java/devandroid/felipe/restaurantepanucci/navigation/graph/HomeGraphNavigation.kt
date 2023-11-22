@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
 import androidx.navigation.navigation
+import devandroid.felipe.restaurantepanucci.model.ProductModel
 import devandroid.felipe.restaurantepanucci.navigation.drinksRoute
 import devandroid.felipe.restaurantepanucci.navigation.drinksScreen
 import devandroid.felipe.restaurantepanucci.navigation.highlightsListRoute
@@ -18,11 +19,17 @@ import devandroid.felipe.restaurantepanucci.ui.components.BottomAppBarItem
 
 internal const val homeGraphRoute = "home"
 
-fun NavGraphBuilder.homeGraph(navController: NavController) {
+fun NavGraphBuilder.homeGraph(
+    onNavigateToCheckout: () -> Unit,
+    onNavigateToProductDetails: (ProductModel) -> Unit
+) {
     navigation(startDestination = highlightsListRoute, route = homeGraphRoute) {
-        highlightsListScreen(navController)
-        menuScreen(navController)
-        drinksScreen(navController)
+        highlightsListScreen(
+            onNavigateToCheckout = onNavigateToCheckout,
+            onNavigateToProductDetails = onNavigateToProductDetails
+        )
+        menuScreen(onNavigateToProductDetails = onNavigateToProductDetails)
+        drinksScreen(onNavigateToProductDetails = onNavigateToProductDetails)
     }
 }
 

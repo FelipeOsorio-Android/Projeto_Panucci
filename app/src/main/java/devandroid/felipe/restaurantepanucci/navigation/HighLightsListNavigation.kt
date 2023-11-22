@@ -7,12 +7,16 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import devandroid.felipe.restaurantepanucci.model.ProductModel
 import devandroid.felipe.restaurantepanucci.ui.screens.HighlightsListScreen
 import devandroid.felipe.restaurantepanucci.ui.viewmodels.HighlightsListViewModel
 
 internal const val highlightsListRoute = "highlight"
 
-fun NavGraphBuilder.highlightsListScreen(navController: NavController) {
+fun NavGraphBuilder.highlightsListScreen(
+    onNavigateToCheckout: () -> Unit,
+    onNavigateToProductDetails: (ProductModel) -> Unit
+) {
     composable(highlightsListRoute) {
 
         val viewModel = viewModel<HighlightsListViewModel>()
@@ -20,12 +24,8 @@ fun NavGraphBuilder.highlightsListScreen(navController: NavController) {
 
         HighlightsListScreen(
             uiState = uiState,
-            onNavigateToDetails = { product ->
-                navController.navigateToProductDetails(product.id)
-            },
-            onNavigateToCheckout = {
-                navController.navigateToCheckout()
-            }
+            onProductClick = onNavigateToProductDetails,
+            onOrderClick = onNavigateToCheckout
         )
     }
 }

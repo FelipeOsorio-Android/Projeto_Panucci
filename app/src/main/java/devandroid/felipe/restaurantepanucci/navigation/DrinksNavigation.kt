@@ -7,12 +7,13 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import devandroid.felipe.restaurantepanucci.model.ProductModel
 import devandroid.felipe.restaurantepanucci.ui.screens.DrinksListScreen
 import devandroid.felipe.restaurantepanucci.ui.viewmodels.DrinksListViewModel
 
 internal const val drinksRoute = "drinks"
 
-fun NavGraphBuilder.drinksScreen(navController: NavController) {
+fun NavGraphBuilder.drinksScreen(onNavigateToProductDetails: (ProductModel) -> Unit) {
     composable(drinksRoute) {
 
         val viewModel = viewModel<DrinksListViewModel>()
@@ -20,9 +21,7 @@ fun NavGraphBuilder.drinksScreen(navController: NavController) {
 
         DrinksListScreen(
             uiState = uiState,
-            onNavigateToDetails = { product ->
-                navController.navigateToProductDetails(product.id)
-            }
+            onProductClick = onNavigateToProductDetails
         )
     }
 }

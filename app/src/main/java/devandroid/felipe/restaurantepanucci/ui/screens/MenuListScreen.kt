@@ -27,7 +27,7 @@ import devandroid.felipe.restaurantepanucci.ui.uistate.MenuListUiState
 fun MenuListScreen(
     modifier: Modifier = Modifier,
     title: String = "Menu",
-    onNavigateToDetails: (ProductModel) -> Unit = {},
+    onProductClick: (ProductModel) -> Unit = {},
     uiState: MenuListUiState = MenuListUiState(),
 ) {
     val products = uiState.products
@@ -57,7 +57,7 @@ fun MenuListScreen(
                     product = p,
                     Modifier
                         .clickable {
-                            onNavigateToDetails(p)
+                            onProductClick(p)
                         }
                 )
             }

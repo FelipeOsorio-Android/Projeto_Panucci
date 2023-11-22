@@ -27,8 +27,8 @@ import devandroid.felipe.restaurantepanucci.ui.uistate.HighlightsListUiState
 fun HighlightsListScreen(
     modifier: Modifier = Modifier,
     title: String = "Destaques do dia",
-    onNavigateToCheckout: () -> Unit = {},
-    onNavigateToDetails: (ProductModel) -> Unit = {},
+    onOrderClick: () -> Unit = {},
+    onProductClick: (ProductModel) -> Unit = {},
     uiState: HighlightsListUiState = HighlightsListUiState()
 ) {
     val products = uiState.products
@@ -58,9 +58,9 @@ fun HighlightsListScreen(
                 HighlightProductCard(
                     product = p,
                     Modifier.clickable {
-                        onNavigateToDetails(p)
+                        onProductClick(p)
                     },
-                    onOrderClick = onNavigateToCheckout
+                    onOrderClick = onOrderClick
                 )
             }
         }
