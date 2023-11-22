@@ -1,6 +1,7 @@
 package devandroid.felipe.restaurantepanucci
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -14,14 +15,20 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import devandroid.felipe.restaurantepanucci.navigation.PanucciNavHost
@@ -34,6 +41,7 @@ import devandroid.felipe.restaurantepanucci.ui.components.BottomAppBarItem
 import devandroid.felipe.restaurantepanucci.ui.components.PanucciBottomAppBar
 import devandroid.felipe.restaurantepanucci.ui.components.bottomAppBarItems
 import devandroid.felipe.restaurantepanucci.ui.theme.RestaurantePanucciTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +49,26 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val backStackEntryState by navController.currentBackStackEntryAsState()
+            val orderSuccess = backStackEntryState
+                ?.savedStateHandle
+                ?.getStateFlow<String?>("order_done", null)
+                ?.collectAsState()
+            backStackEntryState?.savedStateHandle?.remove<String?>("order_done")
+
+            Log.i("pedido", "${orderSuccess?.value}")
+
             val currentDestination = backStackEntryState?.destination
+
+            val scope = rememberCoroutineScope()
+            val snackBarHostState = remember {
+                SnackbarHostState()
+            }
+
+            orderSuccess?.value?.let {
+                scope.launch {
+                    snackBarHostState.showSnackbar(it)
+                }
+            }
 
             RestaurantePanucciTheme {
                 Surface(
@@ -51,7 +78,7 @@ class MainActivity : ComponentActivity() {
                     val currentRoute = currentDestination?.route
                     val selectedItem by remember(currentDestination) {
 
-                        val item = when(currentRoute) {
+                        val item = when (currentRoute) {
                             highlightsListRoute -> BottomAppBarItem.HighLightsList
 
                             menuRoute -> BottomAppBarItem.Menu
@@ -63,17 +90,18 @@ class MainActivity : ComponentActivity() {
                         mutableStateOf(item)
                     }
 
-                    val containsInBottomAppBarItems = when(currentRoute) {
+                    val containsInBottomAppBarItems = when (currentRoute) {
                         highlightsListRoute, menuRoute, drinksRoute -> true
                         else -> false
                     }
 
-                    val isShowFab = when(currentRoute) {
+                    val isShowFab = when (currentRoute) {
                         menuRoute, drinksRoute -> true
                         else -> false
                     }
 
                     PanucciApp(
+                        snackBarHostState = snackBarHostState,
                         bottomAppBarItemSelected = selectedItem,
                         onBottomAppBarItemSelectedChange = { item ->
                             navController.navigateSingleTopWithPopUpTo(item)
@@ -102,9 +130,17 @@ fun PanucciApp(
     isShowTopAppBar: Boolean = false,
     isShowBottomBar: Boolean = false,
     isShowFab: Boolean = false,
-    content: @Composable () -> Unit
+    snackBarHostState: SnackbarHostState = SnackbarHostState(),
+    content: @Composable () -> Unit,
 ) {
     Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackBarHostState) {
+                Snackbar(Modifier.padding(16.dp)) {
+                    Text(text = it.visuals.message)
+                }
+            }
+        },
         topBar = {
             if (isShowTopAppBar) {
                 CenterAlignedTopAppBar(
@@ -115,7 +151,7 @@ fun PanucciApp(
             }
         },
         bottomBar = {
-            if(isShowBottomBar) {
+            if (isShowBottomBar) {
                 PanucciBottomAppBar(
                     item = bottomAppBarItemSelected,
                     items = bottomAppBarItems,
@@ -149,7 +185,7 @@ fun PanucciApp(
 private fun PanucciAppPreview() {
     RestaurantePanucciTheme {
         Surface {
-            PanucciApp {}
+            PanucciApp(content = {})
         }
     }
 }

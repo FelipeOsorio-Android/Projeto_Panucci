@@ -32,7 +32,6 @@ fun NavGraphBuilder.productDetailsScreen(
             ProductDetailsScreen(
                 uiState = uiState,
                 onOrderClick = onNavigateToCheckout,
-                onBackClick = onPopBackStack
             )
         } ?: LaunchedEffect(Unit) {
             onPopBackStack()

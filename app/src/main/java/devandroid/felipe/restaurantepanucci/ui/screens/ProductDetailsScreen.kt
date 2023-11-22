@@ -29,7 +29,6 @@ import devandroid.felipe.restaurantepanucci.ui.uistate.ProductDetailsUiState
 fun ProductDetailsScreen(
     modifier: Modifier = Modifier,
     onOrderClick: () -> Unit = {},
-    onBackClick: () -> Unit = {},
     uiState: ProductDetailsUiState = ProductDetailsUiState()
 ) {
     val product = uiState.product
