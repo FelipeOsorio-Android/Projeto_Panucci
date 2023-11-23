@@ -21,14 +21,10 @@ fun NavGraphBuilder.productDetailsScreen(
     { backStackEntry ->
 
         val id = backStackEntry.arguments?.getString(productIdArguments)
-        val viewModel = viewModel<ProductDetailsViewModel>()
+        val viewModel = viewModel<ProductDetailsViewModel>(factory = ProductDetailsViewModel.Factory)
         val uiState by viewModel.uiState.collectAsState()
 
         id?.let {
-            LaunchedEffect(Unit) {
-                viewModel.findProductById(it)
-            }
-
             ProductDetailsScreen(
                 uiState = uiState,
                 onOrderClick = onNavigateToCheckout,
